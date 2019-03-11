@@ -1,7 +1,7 @@
 package com.jeson.searchroom.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * ${DESCRIPTION}
@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jason
  * @create 2019-03-11 10:57
  **/
-@RestController
+@Controller
 public class TestController {
-    @GetMapping("/hello")
+
+    @PostMapping ("/hello")
     public String test(){
-        return "hello jeson";
+        return "test";
     }
 }
