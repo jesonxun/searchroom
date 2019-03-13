@@ -42,7 +42,6 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter implements Applicat
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("static/**").addResourceLocations("classpath:/static/");
-
     }
 
     /**
