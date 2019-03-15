@@ -26,5 +26,10 @@ public class HomeController {
     public String internalError() {
         return "500";
     }
+    @GetMapping("/logout/page")
+    public String logoutPage() {
+        return "logout";
+    }
+
 
 }

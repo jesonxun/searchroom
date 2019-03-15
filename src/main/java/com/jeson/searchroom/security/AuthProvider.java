@@ -1,10 +1,10 @@
 package com.jeson.searchroom.security;
 
 import com.jeson.searchroom.entity.User;
-import com.jeson.searchroom.exception.BaseException;
 import com.jeson.searchroom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.Authentication;
@@ -33,13 +33,13 @@ public class AuthProvider implements AuthenticationProvider {
 
         User user = userService.findByName(userName);
         if (user == null){
-            throw new BaseException("用户不存在");
+            throw new AuthenticationServiceException("用户不存在");
         }
 
         if (this.encoder.isPasswordValid(user.getPassword(),password,user.getId())){
             return new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
         }
-        throw new BaseException("认证失败");
+        throw new AuthenticationServiceException("认证失败");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.jeson.searchroom.config;
 
 import com.jeson.searchroom.security.AuthProvider;
+import com.jeson.searchroom.security.LoginUrlEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,7 +24,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
-     *
+     *  http 权限权限认证
      * */
     @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -38,7 +39,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
           .formLogin()
                   .loginProcessingUrl("/login")
-                  .and();
+                  .and()
+          .logout()
+                  .logoutUrl("/logout")
+                  .logoutSuccessUrl("/logout/page")
+                  .deleteCookies("JSESSIONID")
+                  .invalidateHttpSession(true)
+          .and().exceptionHandling()
+                .authenticationEntryPoint(urlEntryPoint())
+                .accessDeniedPage("/403");
 
           http.csrf().disable();    //关闭防御策略
           http.headers().frameOptions().sameOrigin();  //开启同源
@@ -56,6 +65,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthProvider authProvider(){
         return new AuthProvider();
+    }
+
+    @Bean
+    public LoginUrlEntryPoint urlEntryPoint(){
+        return new LoginUrlEntryPoint("/user/login");
     }
 
 }
