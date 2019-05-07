@@ -55,7 +55,7 @@ public class ApiErrorController implements ErrorController {
     {
         Integer status = (Integer) response.getStatus();
         switch (status){
-            case 400 :
+            case 403 :
                 return "403";
             case 404:
                 return "404";

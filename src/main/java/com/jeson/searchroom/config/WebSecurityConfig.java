@@ -1,6 +1,7 @@
 package com.jeson.searchroom.config;
 
 import com.jeson.searchroom.security.AuthProvider;
+import com.jeson.searchroom.security.LoginAuthFailPoint;
 import com.jeson.searchroom.security.LoginUrlEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .and()
           .formLogin()
                   .loginProcessingUrl("/login")
+                  .defaultSuccessUrl("/index")
+                  .failureHandler(authFailPoint())
                   .and()
           .logout()
                   .logoutUrl("/logout")
@@ -70,6 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public LoginUrlEntryPoint urlEntryPoint(){
         return new LoginUrlEntryPoint("/user/login");
+    }
+    @Bean
+    public LoginAuthFailPoint authFailPoint() {
+        return new LoginAuthFailPoint(urlEntryPoint());
     }
 
 }
