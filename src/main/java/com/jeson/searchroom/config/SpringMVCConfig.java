@@ -1,5 +1,6 @@
 package com.jeson.searchroom.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -83,6 +84,13 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter implements Applicat
         return thymeleafViewResolver;
     }
 
+    /**
+     * bean util
+     * */
+    @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
 
 
 

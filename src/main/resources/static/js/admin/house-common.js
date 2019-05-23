@@ -10,13 +10,14 @@ function showError(message) {
 
 function changeCity(city) {
     $.get('/address/support/cities', function (data, status) {
+        debugger
         if (status !== 'success' || data.code !== 200) {
             showError(data.message);
             return;
         }
         city.html(tipStr);
         var str = '';
-        $.each(data.data, function (i, item) {
+        $.each(data.data.result, function (i, item) {
             str += "<option value=" + item.en_name + ">" + item.cn_name + "</option>";
         });
         city.append(str);
@@ -33,7 +34,7 @@ function changeRegion(region, cityName) {
         region.html(tipStr);
 
         var str = "";
-        $.each(data.data, function (i, item) {
+        $.each(data.data.result, function (i, item) {
             if (item.en_name === selectedVal) {
                 str += "<option value=" + item.en_name + " selected='selected'>" + item.cn_name + "</option>";
             } else {
