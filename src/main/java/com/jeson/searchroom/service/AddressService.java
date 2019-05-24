@@ -1,5 +1,7 @@
 package com.jeson.searchroom.service;
 
+import com.jeson.searchroom.entity.Subway;
+import com.jeson.searchroom.entity.SubwayStation;
 import com.jeson.searchroom.web.dto.SupportAddressDTO;
 
 /**
@@ -16,7 +18,17 @@ public interface AddressService {
     ServiceMultiResult<SupportAddressDTO>findAllCities();
 
     /**
-     * 获取区/县
+     * 根据城市获取区/县
      */
     ServiceMultiResult<SupportAddressDTO>findAllRegionsByCity(String city);
+
+    /**
+     * 根据城市获取地铁线路线
+     * */
+    ServiceMultiResult<Subway>findAllSubwayByCity(String city);
+
+    /**
+     * 根据地铁路线获取地铁站台信息
+     * */
+    ServiceMultiResult<SubwayStation> finAllSubwayStationByLine(Long subwayId);
 }

@@ -1,6 +1,10 @@
 package com.jeson.searchroom.service.serviceImp;
 
+import com.jeson.searchroom.entity.Subway;
+import com.jeson.searchroom.entity.SubwayStation;
 import com.jeson.searchroom.entity.SupportAddress;
+import com.jeson.searchroom.repsitory.SubwayRepository;
+import com.jeson.searchroom.repsitory.SubwayStationRepository;
 import com.jeson.searchroom.repsitory.SupportAddressRepository;
 import com.jeson.searchroom.service.AddressService;
 import com.jeson.searchroom.service.ServiceMultiResult;
@@ -24,6 +28,12 @@ public class AddressServiceImpl implements AddressService {
 
     @Autowired
     SupportAddressRepository supportAddressRepository;
+
+    @Autowired
+    SubwayRepository subwayRepository;
+
+    @Autowired
+    SubwayStationRepository subwayStationRepository;
 
     @Autowired
     ModelMapper modelMapper;
@@ -57,5 +67,23 @@ public class AddressServiceImpl implements AddressService {
             supportAddressDTOS.add(addressDTO);
         });
         return new ServiceMultiResult<>(supportAddressDTOS.size(),supportAddressDTOS);
+    }
+
+    @Override
+    public ServiceMultiResult<Subway> findAllSubwayByCity(String city) {
+        List<Subway> allByCityEnName = subwayRepository.getAllByCityEnName(city);
+        if (allByCityEnName.size() == 0){
+            return new ServiceMultiResult<>(0,null);
+        }
+        return new ServiceMultiResult<>(allByCityEnName.size(),allByCityEnName);
+    }
+
+    @Override
+    public ServiceMultiResult<SubwayStation> finAllSubwayStationByLine(Long subwayId) {
+        List<SubwayStation> allBySubwayId = subwayStationRepository.findAllBySubwayId(subwayId);
+        if (allBySubwayId.size() == 0){
+            return new ServiceMultiResult<>(0,null);
+        }
+        return new ServiceMultiResult<>(allBySubwayId.size(),allBySubwayId);
     }
 }

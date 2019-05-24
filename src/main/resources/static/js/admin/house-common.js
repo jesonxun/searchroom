@@ -51,9 +51,10 @@ function changeSubwayLine(subwayLine, cityName) {
             showError(data.message);
             return;
         }
+        debugger
         subwayLine.html(tipStr);
         var str = "";
-        $.each(data.data, function (index, subway) {
+        $.each(data.data.result, function (index, subway) {
             str += "<option value=" + subway.id + ">" + subway.name + "</option>";
         });
         subwayLine.append(str);
@@ -66,10 +67,10 @@ function changeSubwayStation(subwayStation, subwayLineId) {
             showError(data.message);
             return;
         }
-
+        debugger
         subwayStation.html(tipStr);
         var str = "";
-        $.each(data.data, function (index, station) {
+        $.each(data.data.result, function (index, station) {
             str += "<option value=" + station.id + ">" + station.name + "</option>";
         });
         subwayStation.append(str);

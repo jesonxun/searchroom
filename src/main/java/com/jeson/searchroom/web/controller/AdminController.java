@@ -52,6 +52,11 @@ public class AdminController {
         return "admin/house-add";
     }
 
+    @GetMapping("/admin/add/house")
+    public String addHouse(){
+        return "admin/house-add";
+    }
+
     @PostMapping(value = "/admin/upload/photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @ResponseBody
     public ApiResponse uploadFile(@RequestParam("file") MultipartFile file){

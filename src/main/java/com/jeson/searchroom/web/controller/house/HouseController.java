@@ -1,6 +1,8 @@
 package com.jeson.searchroom.web.controller.house;
 
 import com.jeson.searchroom.base.ApiResponse;
+import com.jeson.searchroom.entity.Subway;
+import com.jeson.searchroom.entity.SubwayStation;
 import com.jeson.searchroom.service.AddressService;
 import com.jeson.searchroom.service.ServiceMultiResult;
 import com.jeson.searchroom.web.dto.SupportAddressDTO;
@@ -42,6 +44,27 @@ public class HouseController {
             return ApiResponse.ofSuccess(ApiResponse.Status.NOT_FOUND);
         }
         return ApiResponse.ofSuccess(allRegionsByCity);
+    }
+
+    @RequestMapping(value = "/address/support/subway/line" ,method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse findAllSubwayByCity(@RequestParam String city_name){
+        ServiceMultiResult<Subway> allSubwayByCity = addressService.findAllSubwayByCity(city_name);
+        if (allSubwayByCity.getTotal() == 0){
+            return ApiResponse.ofSuccess(ApiResponse.Status.NOT_FOUND);
+        }
+        return ApiResponse.ofSuccess(allSubwayByCity);
+    }
+
+    @RequestMapping(value = "/address/support/subway/station",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse findAllSubwayStationByLine(@RequestParam Long subway_id){
+        ServiceMultiResult<SubwayStation> subwayStation =
+                addressService.finAllSubwayStationByLine(subway_id);
+        if (subwayStation.getTotal() == 0){
+            return ApiResponse.ofSuccess(ApiResponse.Status.NOT_FOUND);
+        }
+        return ApiResponse.ofSuccess(subwayStation);
     }
 
 
